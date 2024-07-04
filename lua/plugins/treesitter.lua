@@ -3,9 +3,10 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		lazy = false,
+		compilers = { "clang" },
 		opts = {
-			-- ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
-			ensure_installed = { "lua" },
+			ensure_installed = { "bash", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
 			sync_install = false,
@@ -27,6 +28,7 @@ return {
 
 			-- Prefer git instead of curl in order to improve connectivity in some environments
 			require("nvim-treesitter.install").prefer_git = false
+
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup(opts)
 
