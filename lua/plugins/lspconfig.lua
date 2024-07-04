@@ -162,6 +162,12 @@ return {
 						},
 					},
 				},
+
+				csharp_ls = {
+					settings = {
+						csharp_ls = {},
+					},
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
