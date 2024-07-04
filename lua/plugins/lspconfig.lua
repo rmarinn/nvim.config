@@ -163,7 +163,23 @@ return {
 					},
 				},
 
-				csharp_ls = {},
+				omnisharp = {
+					cmd = {
+						"C:/ProgramData/chocolatey/lib/omnisharp/tools/OmniSharp.exe",
+						"--languageserver",
+						"--hostPID",
+						tostring(vim.fn.getpid()),
+					},
+					on_attach = function(client, bufnr)
+						local function buf_set_option(...)
+							vim.api.nvim_buf_set_option(bufnr, ...)
+						end
+						buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+					end,
+					capabilities = require("cmp_nvim_lsp").default_capabilities(
+						vim.lsp.protocol.make_client_capabilities()
+					),
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
