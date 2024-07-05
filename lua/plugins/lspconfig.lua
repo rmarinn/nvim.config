@@ -105,16 +105,6 @@ return {
 							end,
 						})
 					end
-
-					-- The following autocommand is used to enable inlay hints in your
-					-- code, if the language server you are using supports them
-					--
-					-- This may be unwanted, since they displace some of your code
-					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-						end, "[T]oggle Inlay [H]ints")
-					end
 				end,
 			})
 
@@ -170,15 +160,7 @@ return {
 						"--hostPID",
 						tostring(vim.fn.getpid()),
 					},
-					on_attach = function(client, bufnr)
-						local function buf_set_option(...)
-							vim.api.nvim_buf_set_option(bufnr, ...)
-						end
-						buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-					end,
-					capabilities = require("cmp_nvim_lsp").default_capabilities(
-						vim.lsp.protocol.make_client_capabilities()
-					),
+					capabilities = capabilities,
 				},
 			}
 
