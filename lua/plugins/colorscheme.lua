@@ -1,10 +1,11 @@
 return {
-	-- tokyonight
+	--[[ tokyonight
 	{
 		"folke/tokyonight.nvim",
 		lazy = true,
 		opts = { style = "moon" },
 	},
+	--]]
 
 	-- catppuccin
 	{

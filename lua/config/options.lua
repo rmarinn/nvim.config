@@ -57,3 +57,7 @@ vim.opt.hlsearch = true
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
 vim.opt.tabstop = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = false -- Use spaces instead of tabs
+
+-- Font
+vim.opt.guifont = "Mononoki Nerd Font Mono"
+-- vim.opt.guifont=Andale_Mono:h7.5:w4.5
