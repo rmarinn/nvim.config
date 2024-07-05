@@ -11,3 +11,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+-- python mappings
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "python mappings",
+	group = vim.api.nvim_create_augroup("py_mapping", { clear = true }),
+	pattern = "python",
+	callback = function(_)
+		vim.keymap.set("n", "<F4>", ":w <bar> exec '!python '.shellescape('%')<CR>")
+	end,
+})
