@@ -141,7 +141,7 @@ return {
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
-					-- capabilities = {},
+					capabilities = capabilities,
 					settings = {
 						Lua = {
 							completion = {
@@ -160,6 +160,10 @@ return {
 						"--hostPID",
 						tostring(vim.fn.getpid()),
 					},
+					capabilities = capabilities,
+				},
+
+				pylsp = {
 					capabilities = capabilities,
 				},
 			}
