@@ -21,3 +21,15 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "<F4>", ":w <bar> exec '!python '.shellescape('%')<CR>")
 	end,
 })
+
+-- lua mappings
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "lua mappings",
+	group = vim.api.nvim_create_augroup("lua_mapping", { clear = true }),
+	pattern = "lua",
+	callback = function(_)
+		vim.keymap.set("n", "<F4>", function()
+			vim.cmd("source %")
+		end)
+	end,
+})
