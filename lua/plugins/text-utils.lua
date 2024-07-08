@@ -1,6 +1,11 @@
 return {
-	-- Collection of various small independent plugins/modules
-	{
+	-- Detect tabstop and shiftwidth automatically
+	{ "tpope/vim-sleuth" },
+
+	-- "gc" to comment visual regions/lines
+	{ "numToStr/Comment.nvim", opts = {} },
+
+	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		config = function()
 			-- Better Around/Inside textobjects
@@ -38,3 +43,4 @@ return {
 		end,
 	},
 }
+

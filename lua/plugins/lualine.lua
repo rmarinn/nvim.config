@@ -1,8 +1,8 @@
 return {
-	{
+	{ -- statusline themeing
 		"nvim-lualine/lualine.nvim",
 		opts = {
-			icons_enabled = false,
+			icons_enabled = true,
 			theme = "catppuccin",
 		},
 		sections = {

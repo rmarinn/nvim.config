@@ -1,6 +1,5 @@
 return {
-	-- LSP Configuration & Plugins
-	{
+	{-- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
@@ -9,7 +8,6 @@ return {
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 
 			-- Useful status updates for LSP.
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -124,19 +122,12 @@ return {
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+			-- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
-				-- tsserver = {},
-				--
+				pyright = {},
+				rust_analyzer = {},
 
 				lua_ls = {
 					-- cmd = {...},
@@ -160,10 +151,6 @@ return {
 						"--hostPID",
 						tostring(vim.fn.getpid()),
 					},
-					capabilities = capabilities,
-				},
-
-				pylsp = {
 					capabilities = capabilities,
 				},
 			}
