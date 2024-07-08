@@ -124,10 +124,10 @@ return {
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			-- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			local servers = {
-				-- clangd = {},
-				-- gopls = {},
-				pyright = {},
-				rust_analyzer = {},
+				-- clangd = {capabilities = capabilities},
+				-- gopls = {capabilities = capabilities},
+				pyright = {capabilities = capabilities},
+				rust_analyzer = { capabilities = capabilities },
 
 				lua_ls = {
 					-- cmd = {...},
