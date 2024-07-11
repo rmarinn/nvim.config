@@ -48,5 +48,6 @@ vim.api.nvim_create_autocmd("filetype", {
 	callback = function(_)
 		vim.keymap.set("n", "<F4>", ":w <bar> exec '!cargo check'<CR>") -- save then check if current project can compile
 		vim.keymap.set("n", "<F5>", ":w <bar> exec '!cargo run'<CR>") -- save then compile current project
+		vim.keymap.set("n", "<F6>", ":exec '!cargo test'<CR>") -- run tests for current project
 	end,
 })
