@@ -14,7 +14,7 @@ then install neovim and the dependencies
 scoop install neovim
 scoop install git
 scoop install ripgrep
-scoop install llvm
+scoop install gcc
 ```
 make sure to restart as well since since tree sitter since it bugs out sometimes: [treesitter windows support](https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support#troubleshooting)
 
@@ -24,9 +24,9 @@ Use `:h rtp` to find the paths that neovim will search for files. It usually def
 
 ## Working with c#
 
-Use [omnisharp-roslyn](https://github.com/OmniSharp/omnisharp-roslyn) as the LSP.
-1. Install the language server: `choco install omnisharp`
-2. Add omnisharp.exe to the path variables. (it can usually be found at `C:\ProgramData\chocolatey\lib\omnisharp` when installed with choco
+Use [omnisharp](https://www.omnisharp.net/) as the LSP.
+1. Install the language server: `scoop install omnisharp`
+2. scoop should automatically add omnisharp to the path. restart the terminal and run `omnisharp -h` to check.
 
 ## Nerdfont Installation
 

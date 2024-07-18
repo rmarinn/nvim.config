@@ -146,7 +146,7 @@ return {
 
 				omnisharp = {
 					cmd = {
-						"C:/ProgramData/chocolatey/lib/omnisharp/tools/OmniSharp.exe",
+						"omnisharp.exe",
 						"--languageserver",
 						"--hostPID",
 						tostring(vim.fn.getpid()),
