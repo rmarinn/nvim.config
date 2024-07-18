@@ -1,5 +1,5 @@
 return {
-	{-- LSP Configuration & Plugins
+	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
@@ -126,7 +126,7 @@ return {
 			local servers = {
 				-- clangd = {capabilities = capabilities},
 				-- gopls = {capabilities = capabilities},
-				pyright = {capabilities = capabilities},
+				pyright = { capabilities = capabilities },
 				rust_analyzer = { capabilities = capabilities },
 
 				lua_ls = {
@@ -146,7 +146,7 @@ return {
 
 				omnisharp = {
 					cmd = {
-						"omnisharp.exe",
+						"omnisharp",
 						"--languageserver",
 						"--hostPID",
 						tostring(vim.fn.getpid()),
