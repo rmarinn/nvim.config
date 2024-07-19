@@ -15,6 +15,17 @@ return {
 					end
 					return "make install_jsregexp"
 				end)(),
+				dependencies = {
+					-- `friendly-snippets` contains a variety of premade snippets.
+					--    See the README about individual language/framework/plugin snippets:
+					--    https://github.com/rafamadriz/friendly-snippets
+					-- {
+					--   'rafamadriz/friendly-snippets',
+					--   config = function()
+					--     require('luasnip.loaders.from_vscode').lazy_load()
+					--   end,
+					-- },
+				},
 			},
 			"saadparwaiz1/cmp_luasnip",
 
@@ -25,6 +36,7 @@ return {
 			"hrsh7th/cmp-path",
 		},
 		config = function()
+			-- See `:help cmp`
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			luasnip.config.setup({})
@@ -73,8 +85,8 @@ return {
 					--    $body
 					--  end
 					--
-					-- <C-l> will move you to the right of each of the expansion locations.
-					-- <C-h> is similar, except moving you backwards.
+					-- <c-l> will move you to the right of each of the expansion locations.
+					-- <c-h> is similar, except moving you backwards.
 					["<C-l>"] = cmp.mapping(function()
 						if luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
@@ -85,15 +97,16 @@ return {
 							luasnip.jump(-1)
 						end
 					end, { "i", "s" }),
+
 					-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
 					--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 				}),
 
 				sources = {
 					{ name = "nvim_lsp" },
-					{ name = "luasnip", keyword_length = 2 },
 					{ name = "buffer", keyword_length = 3 },
 					{ name = "path" },
+					{ name = "luasnip", keyword_length = 2 },
 				},
 
 				window = {
