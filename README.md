@@ -37,3 +37,6 @@ Use [omnisharp](https://www.omnisharp.net/) as the LSP.
 
 You can find other fonts [here](https://github.com/ryanoasis/nerd-fonts#patched-fonts).
 
+## Installing auto formatters for [conform](https://github.com/stevearc/conform.nvim) to use
+- [htmlbeautifier](https://github.com/threedaymonk/htmlbeautifier): `gem install htmlbeautifier`
+- [csharpier](https://github.com/belav/csharpier): `dotnet tool install csharpier -g`
