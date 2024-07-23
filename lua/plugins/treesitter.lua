@@ -2,6 +2,7 @@ return {
 	{
 		{ -- Highlight, edit, and navigate code
 			"nvim-treesitter/nvim-treesitter",
+			version = "v0.9.*",
 			build = ":TSUpdate",
 			lazy = false,
 			opts = {
