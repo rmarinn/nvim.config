@@ -26,5 +26,6 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
-vim.keymap.set("n", "<C-i>", ":bprev<CR>", { desc = "Go to previous file" })
-vim.keymap.set("n", "<C-o>", ":bnext<CR>", { desc = "Go to next file" })
+vim.keymap.set("n", "<C-i>", ":bprev<CR>", { desc = "Go to previous buffer" })
+vim.keymap.set("n", "<C-o>", ":bnext<CR>", { desc = "Go to next buffer" })
+vim.keymap.set("n", "<C-w>", ":bdelete<CR>", { desc = "Remove current (unsaved) buffer" })
