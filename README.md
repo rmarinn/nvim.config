@@ -1,6 +1,6 @@
 # nvim.config
 
-This is my personal neovim config which I use on my windows machine. 
+This is my personal neovim config which I use on my windows machine.
 *I mostly made this repo to help me reinstall this thing again.*
 
 ## Dependencies
@@ -22,11 +22,11 @@ make sure to restart as well since since tree sitter since it bugs out sometimes
 
 Use `:h rtp` to find the paths that neovim will search for files. It usually defaults to `User/Appdata/Local/nvim` and `User/Appdata/Local/nvim` but you can set `XDG_CONFIG_HOME` somewhere else in the environment variables.
 
-## Working with c#
+## LSP Setup
 
-Use [omnisharp](https://www.omnisharp.net/) as the LSP.
-1. Install the language server: `scoop install omnisharp`
-2. scoop should automatically add omnisharp to the path. restart the terminal and run `omnisharp -h` to check.
+to install lsps, use `:LspInstall`.
+
+Mason will let you choose lsps available for the currently open file
 
 ## Nerdfont Installation
 

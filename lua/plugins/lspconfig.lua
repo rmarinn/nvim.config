@@ -15,13 +15,9 @@ return {
 			{ "folke/neodev.nvim", opts = {} },
 		},
 
-		--  This function gets run when an LSP attaches to a particular buffer.
-		--    That is to say, every time a new file is opened that is associated with
-		--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-		--    function will be executed to configure the current buffer
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 
 				-- Sets the mode, buffer, and description
 				callback = function(event)
@@ -142,16 +138,6 @@ return {
 							-- diagnostics = { disable = { 'missing-fields' } },
 						},
 					},
-				},
-
-				omnisharp = {
-					cmd = {
-						"C:/Users/Richard/scoop/apps/omnisharp/1.39.11/OmniSharp.exe",
-						"--languageserver",
-						"--hostPID",
-						tostring(vim.fn.getpid()),
-					},
-					capabilities = capabilities,
 				},
 			}
 
