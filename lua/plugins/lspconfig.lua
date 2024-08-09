@@ -139,6 +139,10 @@ return {
 						},
 					},
 				},
+
+				tailwindcss = {
+					filetypes = { "svelte", "css", "scss", "html" },
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
