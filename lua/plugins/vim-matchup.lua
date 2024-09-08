@@ -3,12 +3,12 @@ return {
 	"andymass/vim-matchup",
 	version = "v0.7.*",
 	config = function()
-		local tsconfig = require("nvim-treesitter.configs")
-
-		tsconfig.setup({
-			matchup = {
-				enable = true,
-			},
-		})
+		-- local tsconfig = require("nvim-treesitter.configs")
+		--
+		-- tsconfig.setup({
+		-- 	matchup = {
+		-- 		enable = true,
+		-- 	},
+		-- })
 	end,
 }

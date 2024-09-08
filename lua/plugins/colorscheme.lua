@@ -1,12 +1,4 @@
 return {
-	{ -- tokyonight
-		"folke/tokyonight.nvim",
-		name = "tokyonight",
-		lazy = true,
-		opts = { style = "moon" },
-	},
-
-	
 	{ -- catpuccin
 		"catppuccin/nvim",
 		name = "catppuccin",

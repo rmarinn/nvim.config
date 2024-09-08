@@ -1,4 +1,3 @@
--- Make line numbers default
 vim.opt.number = true
 -- Relative line numbers
 vim.opt.relativenumber = true
@@ -9,8 +8,22 @@ vim.opt.mouse = "a"
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
-vim.opt.clipboard = "unnamedplus"
+-- Sync clipboard between OS and Neovim (Doesn't work on WSL but works on windows)
+-- vim.opt.clipboard = "unnamedplus"
+
+-- enabling clipboard on WSL
+vim.g.clipboard = {
+	name = "WslClipboard",
+	copy = {
+		["+"] = "clip.exe",
+		["*"] = "clip.exe",
+	},
+	paste = {
+		["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+	},
+	cache_enabled = 0,
+}
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -27,10 +40,6 @@ vim.opt.signcolumn = "yes"
 
 -- Decrease update time
 vim.opt.updatetime = 500
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 500
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -55,7 +64,7 @@ vim.opt.hlsearch = true
 
 -- Tab options
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
-vim.opt.tabstop = 4 -- Number of spaces to use for each step of (auto)indent
+vim.opt.softtabstop = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = false -- Use spaces instead of tabs
 
 -- Font

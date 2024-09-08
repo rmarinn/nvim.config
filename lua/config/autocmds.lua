@@ -9,14 +9,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd("BufWritePre", {
-	desc = "Format buffer before saving saving",
-	group = augroup,
-	callback = function()
-		require("conform").format({ async = true, lsp_fallback = true })
-	end,
-})
+-- Format buffer before saving
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	desc = "Format buffer before saving saving",
+-- 	group = augroup,
+-- 	callback = function()
+-- 		require("conform").format({ async = true, lsp_fallback = true })
+-- 	end,
+-- })
 
 -- python mappings
 vim.api.nvim_create_autocmd("FileType", {
