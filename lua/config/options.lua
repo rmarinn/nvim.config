@@ -11,20 +11,6 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim (Doesn't work on WSL but works on windows)
 vim.opt.clipboard = "unnamedplus"
 
--- enabling clipboard on WSL
--- vim.g.clipboard = {
--- 	name = "WslClipboard",
--- 	copy = {
--- 		["+"] = "clip.exe",
--- 		["*"] = "clip.exe",
--- 	},
--- 	paste = {
--- 		["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
--- 		["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
--- 	},
--- 	cache_enabled = 0,
--- }
-
 -- Enable break indent
 vim.opt.breakindent = true
 
