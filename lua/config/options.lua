@@ -63,8 +63,9 @@ vim.opt.scrolloff = 10 -- Minimal number of screen lines to keep above and below
 vim.opt.hlsearch = true
 
 -- Tab options
-vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
-vim.opt.softtabstop = 4 -- Number of spaces to use for each step of (auto)indent
+vim.opt.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for
+vim.opt.softtabstop = 2 -- Number of spaces to use for each step of (auto)indent
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = false -- Use spaces instead of tabs
 
 -- Font
