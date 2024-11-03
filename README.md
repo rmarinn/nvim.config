@@ -73,3 +73,33 @@ Then setup the credential manager:
 git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
 ```
 
+## Signing Commits
+
+To sign commits, see the relevant docs:
+
+- [Generating a new GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key?platform=linux).
+- [Telling Git about your signing key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)
+- [Adding a GPG key to your GitHub account](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
+
+### Fixing `No pinentry` Error
+
+1. First install [gpg4win](https://www.gpg4win.org/). We will use this as the graphical interface where we can enter our passphrase.
+
+2. Then, install the signing packages if you don't have them yet.
+
+```sh
+sudo apt-get install gpg gnupg gpg-agent
+```
+
+3. Edit the gnupg config at `~/.gnupg/gpg-agent.conf`. If the file does not exist, create it.
+
+```conf
+default-cache-ttl 34560000
+max-cache-ttl 34560000
+pinentry-program "/mnt/c/Program Files (x86)/GnuPG/bin/pinentry-basic.exe"
+```
+
+- We set the `default-cache-ttl` and `max-cache-ttl` to 400 days so we dont have to keep entering the passphrase until we restart (Optional).
+- Then we point to the graphical pinentry program
+
+4. Done.
