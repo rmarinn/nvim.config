@@ -22,6 +22,12 @@ vim.g.clipboard = {
 	cache_enabled = 0,
 }
 
+-- Remap `yy` to copy line to clipboard in Normal mode
+vim.api.nvim_set_keymap("n", "yy", '"+yy', { noremap = true, silent = true })
+
+-- Remap `y` to copy selection to clipboard in Visual mode
+vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true, silent = true })
+
 -- Enable break indent
 vim.opt.breakindent = true
 
