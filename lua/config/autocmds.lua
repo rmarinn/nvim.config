@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("filetype", {
 	callback = function(_)
 		vim.keymap.set("n", "<F2>", ":Cargo check<CR>")
 		vim.keymap.set("n", "<F3>", ":Cargo test<CR>")
-		vim.keymap.set("n", "<F4>", ":Cargo test --workspace<CR>")
+		vim.keymap.set("n", "<F4>", ":Cargo test<CR>")
 		vim.keymap.set("n", "<F5>", ":Cargo run<CR>")
 	end,
 })
