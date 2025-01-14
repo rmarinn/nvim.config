@@ -69,7 +69,6 @@ return {
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local servers = {
-			pyright = { capabilities = capabilities },
 			rust_analyzer = { capabilities = capabilities },
 			lua_ls = {
 				capabilities = capabilities,
