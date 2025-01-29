@@ -69,7 +69,9 @@ return {
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local servers = {
-			rust_analyzer = { capabilities = capabilities },
+			rust_analyzer = {
+				rust_analyzer = { capabilities = capabilities },
+			},
 			lua_ls = {
 				capabilities = capabilities,
 				settings = {
@@ -91,6 +93,8 @@ return {
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
+			ensure_installed = {},
+			automatic_installation = true,
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}
