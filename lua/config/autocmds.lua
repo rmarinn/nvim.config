@@ -50,6 +50,7 @@ vim.api.nvim_create_autocmd("filetype", {
 		vim.keymap.set("n", "<F3>", ":Cargo check<CR>")
 		vim.keymap.set("n", "<F4>", ":Cargo test<CR>")
 		vim.keymap.set("n", "<F5>", ":Cargo run<CR>")
+		vim.keymap.set("n", "<F10>", ":!leptosfmt ./**/*.rs <CR>")
 	end,
 })
 
