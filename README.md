@@ -81,6 +81,12 @@ To sign commits, see the relevant docs:
 - [Telling Git about your signing key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)
 - [Adding a GPG key to your GitHub account](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
 
+then add this to the `.bashrc` so commits can be signed:
+
+```
+export GPG_TTY=$(tty)
+```
+
 ### Fixing `No pinentry` Error
 
 1. First install [gpg4win](https://www.gpg4win.org/). We will use this as the graphical interface where we can enter our passphrase.
