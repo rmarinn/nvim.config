@@ -46,8 +46,8 @@ vim.api.nvim_create_autocmd("filetype", {
 	group = vim.api.nvim_create_augroup("rust_mappings", { clear = true }),
 	pattern = "rust",
 	callback = function(_)
-		vim.keymap.set("n", "<F2>", ":Cargo check<CR>")
-		vim.keymap.set("n", "<F3>", ":Cargo test<CR>")
+		vim.keymap.set("n", "<F2>", ":Cargo clippy -- -Dwarnings<CR>")
+		vim.keymap.set("n", "<F3>", ":Cargo check")
 		vim.keymap.set("n", "<F4>", ":Cargo test<CR>")
 		vim.keymap.set("n", "<F5>", ":Cargo run<CR>")
 	end,
