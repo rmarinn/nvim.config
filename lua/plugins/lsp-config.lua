@@ -69,7 +69,18 @@ return {
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local servers = {
-			rust_analyzer = { capabilities = capabilities },
+			rust_analyzer = {
+				capabilities = capabilities,
+				init_options = {
+					cargo = {
+						features = "all",
+					},
+					checkOnSave = {
+						command = "clippy",
+						extraArgs = { "--", "-D", "warnings" },
+					},
+				},
+			},
 			lua_ls = {
 				capabilities = capabilities,
 				settings = {
