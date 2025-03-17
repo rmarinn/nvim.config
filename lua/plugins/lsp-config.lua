@@ -91,6 +91,17 @@ return {
 					},
 				},
 			},
+			harper_ls = {
+				capabilities = capabilities,
+				filetypes = { "markdown" },
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+					},
+				},
+			},
 		}
 
 		require("mason").setup()
