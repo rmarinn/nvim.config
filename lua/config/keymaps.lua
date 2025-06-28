@@ -26,4 +26,18 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Keybinds for tab navigation
+vim.keymap.set("n", "<C-t>n", ":tabnew<CR>", { desc = "Create a new tab" })
+vim.keymap.set("n", "<C-t>h", ":tabprev<CR>", { desc = "Move to the left tab" })
+vim.keymap.set("n", "<C-t>l", ":tabnext<CR>", { desc = "Move to the right tab" })
+vim.keymap.set("n", "<C-t>x", ":tabclose<CR>", { desc = "Close the current tab" })
+vim.keymap.set("n", "<C-t>o", ":tabonly<CR>", { desc = "Close the other tabs" })
+vim.keymap.set("n", "<C-t>1", ":1tabnext<CR>", { desc = "Go to the first tab" })
+vim.keymap.set("n", "<C-t>2", ":2tabnext<CR>", { desc = "Go to the second tab" })
+vim.keymap.set("n", "<C-t>3", ":3tabnext<CR>", { desc = "Go to the third tab" })
+vim.keymap.set("n", "<C-t>4", ":4tabnext<CR>", { desc = "Go to the fourth tab" })
+vim.keymap.set("n", "<C-t>5", ":5tabnext<CR>", { desc = "Go to the fifth tab" })
+vim.keymap.set("n", "<C-t><C-h>", "-tabmove", { desc = "Move tab to the left" })
+vim.keymap.set("n", "<C-t><C-l>", "+tabmove", { desc = "Move tab to the right" })
+
 vim.keymap.set("n", "<C-w>", ":bdelete<CR>", { desc = "Remove current (unsaved) buffer" })
