@@ -50,6 +50,17 @@ vim.api.nvim_create_autocmd("filetype", {
 		vim.keymap.set("n", "<F3>", ":Cargo check<CR>")
 		vim.keymap.set("n", "<F4>", ":Cargo test<CR>")
 		vim.keymap.set("n", "<F5>", ":Cargo run<CR>")
-		vim.keymap.set("n", "<F6>", ":!leptosfmt ./**/*.rs<CR>")
+	end,
+})
+
+-- zig mappings
+vim.api.nvim_create_autocmd("filetype", {
+	desc = "zig mappings",
+	group = vim.api.nvim_create_augroup("zig_mappings", { clear = true }),
+	pattern = "zig",
+	callback = function(_)
+		vim.keymap.set("n", "<F3>", ":!zig run ")
+		vim.keymap.set("n", "<F5>", ":!zig build test<CR>")
+		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
 	end,
 })
