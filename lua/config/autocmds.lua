@@ -75,9 +75,8 @@ vim.api.nvim_create_autocmd("filetype", {
 			-- Get full path to current file
 			local file = vim.fn.expand("%")
 
-			local pkgname = ""
-
 			-- Use ripgrep to extract the package name
+			local pkgname = ""
 			local handle = io.popen("rg '^package ' " .. file .. " | awk '{print $2}'")
 			if handle then
 				pkgname = handle:read("*l")
@@ -100,11 +99,14 @@ vim.api.nvim_create_autocmd("filetype", {
 
 			-- Dump assembly from user-defined functions only
 			local asm_filename = "/tmp/" .. pkgname .. "_asm.s"
-			local asm_cmd = string.format(
-				"go tool nm ./%s | rg '^.* T %s\\.' | awk '{print $3}' | xargs -I{} go tool objdump -s {} ./%s | expand -t 2 > %s",
-				pkgname, pkgname, pkgname, asm_filename
-			)
-			os.execute(asm_cmd)
+			local asm_cmd      = string.format(
+				"go tool objdump -s '^%s' ./%s | expand -t 2 > %s",
+				pkgname, pkgname, asm_filename)
+			local ok           = os.execute(asm_cmd)
+			if not ok then
+				local err_msg = string.format("Failed to disassemble code:\n%s", asm_cmd)
+				vim.notify(err_msg, vim.log.levels.ERROR)
+			end
 
 			-- Open the output file in a vertical split
 			vim.cmd("vsplit " .. asm_filename)
