@@ -71,7 +71,45 @@ vim.api.nvim_create_autocmd("filetype", {
 	group = vim.api.nvim_create_augroup("go_mappings", { clear = true }),
 	pattern = "go",
 	callback = function(_)
-		vim.keymap.set("n", "<F2>", ":!go run . -race<CR>")
+		vim.keymap.set("n", "<F1>", function()
+			-- Get full path to current file
+			local file = vim.fn.expand("%")
+
+			local pkgname = ""
+
+			-- Use ripgrep to extract the package name
+			local handle = io.popen("rg '^package ' " .. file .. " | awk '{print $2}'")
+			if handle then
+				pkgname = handle:read("*l")
+				handle:close()
+			end
+
+			if pkgname == "" then
+				print("Could not find package name in " .. file)
+				return
+			end
+
+			-- Build the Go file into a named binary (e.g., ./main)
+			local build_cmd = string.format("go build -o %s %s", pkgname, file)
+			local build_result = os.execute(build_cmd)
+			if build_result ~= 0 then
+				print("Go build failed")
+				return
+			end
+
+
+			-- Dump assembly from user-defined functions only
+			local asm_filename = "/tmp/" .. pkgname .. "_asm.s"
+			local asm_cmd = string.format(
+				"go tool nm ./%s | rg '^.* T %s\\.' | awk '{print $3}' | xargs -I{} go tool objdump -s {} ./%s | expand -t 2 > %s",
+				pkgname, pkgname, pkgname, asm_filename
+			)
+			os.execute(asm_cmd)
+
+			-- Open the output file in a vertical split
+			vim.cmd("vsplit " .. asm_filename)
+		end, { noremap = true, silent = false })
+		vim.keymap.set("n", "<F3>", ":!go run . -race<CR>")
 		vim.keymap.set("n", "<F5>", ":!go run .<CR>")
 		vim.keymap.set("n", "<F4>", ":!go test .<CR>")
 	end,
