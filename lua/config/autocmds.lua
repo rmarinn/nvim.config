@@ -64,3 +64,15 @@ vim.api.nvim_create_autocmd("filetype", {
 		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
 	end,
 })
+
+-- go mappings
+-- vim.api.nvim_create_autocmd("filetype", {
+-- 	desc = "go mappings",
+-- 	group = vim.api.nvim_create_augroup("go_mappings", { clear = true }),
+-- 	pattern = "go",
+-- 	callback = function(_)
+-- 		vim.keymap.set("n", "<F3>", ":!zig run ")
+-- 		vim.keymap.set("n", "<F5>", ":!zig build test<CR>")
+-- 		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
+-- 	end,
+-- })
