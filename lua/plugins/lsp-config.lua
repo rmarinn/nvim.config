@@ -2,14 +2,15 @@ return {
 	"neovim/nvim-lspconfig",
 	version = "v2.3.*",
 	dependencies = {
-		{ "williamboman/mason.nvim",                  config = true,         version = "v2.0.\\d+$" },
-		{ "williamboman/mason-lspconfig.nvim",        version = "v2.0.\\d+$" },
+		{ "williamboman/mason.nvim", config = true, version = "v2.0.\\d+$" },
+		{ "williamboman/mason-lspconfig.nvim", version = "v2.0.\\d+$" },
 		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
-		{ "j-hui/fidget.nvim",                        opts = {},             version = "v1.6.\\d+$" },
+		{ "j-hui/fidget.nvim", opts = {}, version = "v1.6.\\d+$" },
 		{
-			"nvim-telescope/telescope.nvim", version = "v0.1.\\d+$"
+			"nvim-telescope/telescope.nvim",
+			version = "v0.1.\\d+$",
 		},
-		{ "hrsh7th/nvim-cmp",    version = "v0.0.\\d+$" },
+		{ "hrsh7th/nvim-cmp", version = "v0.0.\\d+$" },
 		{ "hrsh7th/cmp-nvim-lsp" },
 	},
 	config = function()
@@ -92,8 +93,8 @@ return {
 				},
 			},
 			harper_ls = {
+				filetypes = { "markdown", "gitcommit", "html" },
 				capabilities = capabilities,
-				filetypes = { "markdown" },
 				settings = {
 					Lua = {
 						completion = {
