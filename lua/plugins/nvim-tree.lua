@@ -1,6 +1,7 @@
 return {
 	-- A File Explorer
 	"nvim-tree/nvim-tree.lua",
+	version = "v1.9.\\d+$",
 	lazy = false,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()

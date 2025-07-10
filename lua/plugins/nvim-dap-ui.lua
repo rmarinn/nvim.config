@@ -1,11 +1,12 @@
 return {
 	-- debugger
 	"rcarriga/nvim-dap-ui",
+	version = "v4.0.\\d+$",
 	dependencies = {
-		"mfussenegger/nvim-dap",
-		"nvim-neotest/nvim-nio",
-		"folke/lazydev.nvim",
-		"https://github.com/leoluz/nvim-dap-go",
+		{ "mfussenegger/nvim-dap",                version = "v0.9.\\d+$" },
+		{ "nvim-neotest/nvim-nio",                version = "v1.9.\\d+$" },
+		{ "folke/lazydev.nvim",                   version = "v1.9.\\d+$" },
+		{ "https://github.com/leoluz/nvim-dap-go" },
 	},
 	config = function()
 		require("lazydev").setup({

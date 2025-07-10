@@ -1,5 +1,6 @@
 return {
 	"stevearc/conform.nvim",
+	version = "v9.0.*",
 	keys = {
 		{
 			"<leader>f",
