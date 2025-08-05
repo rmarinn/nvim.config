@@ -41,3 +41,6 @@ vim.keymap.set("n", "<C-t><C-h>", "-tabmove", { desc = "Move tab to the left" })
 vim.keymap.set("n", "<C-t><C-l>", "+tabmove", { desc = "Move tab to the right" })
 
 vim.keymap.set("n", "<C-w>", ":bdelete<CR>", { desc = "Remove current (unsaved) buffer" })
+
+vim.keymap.set("n", "<leader>tl", ":vsp<CR>:term<CR>", { desc = "Open terminal on the right" })
+vim.keymap.set("n", "<leader>tj", ":sp<CR>:term<CR>", { desc = "Open terminal on the bottom" })
