@@ -5,7 +5,7 @@ return {
 		lazy = false,
 		opts = {},
 		config = function()
-			vim.cmd([[colorscheme dracula-soft]])
+			vim.cmd([[colorscheme dracula]])
 		end,
 	},
 }
