@@ -80,26 +80,10 @@ return {
 					},
 				},
 			},
-			lua_ls = {
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
-			},
 			harper_ls = {
 				capabilities = capabilities,
 				filetypes = { "markdown" },
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
+				settings = {},
 			},
 		}
 

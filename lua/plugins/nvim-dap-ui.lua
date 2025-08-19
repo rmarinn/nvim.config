@@ -5,7 +5,6 @@ return {
 		"mfussenegger/nvim-dap",
 		"nvim-neotest/nvim-nio",
 		"folke/lazydev.nvim",
-		"https://github.com/leoluz/nvim-dap-go",
 	},
 	config = function()
 		require("lazydev").setup({
@@ -54,28 +53,73 @@ return {
 			},
 		}
 
-		require("dap-go").setup({
-			dap_configurations = {
-				{
-					type = "go",
-					name = "Attach remote",
-					mode = "remote",
-					request = "attach",
-				},
-			},
-			delve = {
-				path = "dlv.cmd",
-				initialize_timeout_sec = 20,
-				port = "${port}",
+		dap.configurations.zig = {
+			{
+				name = "Debug Zig executable",
+				type = "codelldb",
+				request = "launch",
+				program = function()
+					local workspace_folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+					return vim.fn.input(
+						"Path to executable: ",
+						vim.fn.getcwd() .. "\\zig-out\\bin\\" .. workspace_folder .. ".exe",
+						"file"
+					)
+				end,
+				cwd = "${workspaceFolder}",
+				stopOnEntry = false,
 				args = {},
-				build_flags = {},
-				detached = vim.fn.has("win32") == 0,
-				cwd = nil,
 			},
-			tests = {
-				verbose = false,
+		}
+
+		dap.adapters.delve = function(callback, config)
+			if config.mode == "remote" and config.request == "attach" then
+				callback({
+					type = "server",
+					host = config.host or "127.0.0.1",
+					port = config.port or "38697",
+				})
+			else
+				callback({
+					type = "server",
+					port = "${port}",
+					executable = {
+						command = "dlv.cmd",
+						args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-output=dap" },
+						detached = vim.fn.has("win32") == 0,
+					},
+				})
+			end
+		end
+
+		dap.configurations.go = {
+			{
+				type = "delve",
+				name = "Debug (go.mod)",
+				request = "launch",
+				program = "./${relativeFileDirname}",
 			},
-		})
+			{
+				type = "delve",
+				name = "Debug",
+				request = "launch",
+				program = "${file}",
+			},
+			{
+				type = "delve",
+				name = "Debug test",
+				request = "launch",
+				mode = "test",
+				program = "${file}",
+			},
+			{
+				type = "delve",
+				name = "Debug test (go.mod)",
+				request = "launch",
+				mode = "test",
+				program = "./${relativeFileDirname}",
+			},
+		}
 
 		vim.keymap.set(
 			"n",
