@@ -50,3 +50,5 @@ vim.keymap.set("n", "<leader>tl", ":vsp<CR>:term<CR>", { desc = "Open terminal o
 vim.keymap.set("n", "<leader>tj", ":sp<CR>:term<CR>", { desc = "Open terminal on the bottom" })
 vim.keymap.set("n", "<leader>tt", ":term<CR>", { desc = "Open terminal on the current screen" })
 vim.keymap.set("n", "<leader>tx", ":q<CR>:vsp<CR>", { desc = "Close terminal Split" })
+
+vim.keymap.set("n", "<leader>rr", ":<UP><CR>", { desc = "Rerun last command" })

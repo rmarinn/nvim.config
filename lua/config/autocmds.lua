@@ -59,8 +59,8 @@ vim.api.nvim_create_autocmd("filetype", {
 	group = vim.api.nvim_create_augroup("zig_mappings", { clear = true }),
 	pattern = "zig",
 	callback = function(_)
-		vim.keymap.set("n", "<F3>", ":!zig run ")
-		vim.keymap.set("n", "<F5>", ":!zig build test<CR>")
+		vim.keymap.set("n", "<F3>", ":!zig build<CR>")
+		vim.keymap.set("n", "<F4>", ":!zig build test<CR>")
 		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
 	end,
 })
