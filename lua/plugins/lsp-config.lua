@@ -5,7 +5,6 @@ return {
 		{ "williamboman/mason-lspconfig.nvim" },
 		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 		{ "j-hui/fidget.nvim", opts = {} },
-		{ "folke/neodev.nvim", opts = {} },
 		{
 			"nvim-telescope/telescope.nvim",
 		},
@@ -71,16 +70,6 @@ return {
 		local servers = {
 			rust_analyzer = {
 				rust_analyzer = { capabilities = capabilities },
-			},
-			lua_ls = {
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
 			},
 		}
 
