@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Format buffer before saving
+-- -- Format buffer before saving
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 -- 	desc = "Format buffer before saving saving",
 -- 	group = augroup,
@@ -64,5 +64,17 @@ vim.api.nvim_create_autocmd("filetype", {
 		vim.keymap.set("n", "<F3>", ":!go mod tidy<CR>")
 		vim.keymap.set("n", "<F4>", ":!go test<CR>")
 		vim.keymap.set("n", "<F5>", ":!go run .<CR>")
+	end,
+})
+
+-- zig mappings
+vim.api.nvim_create_autocmd("filetype", {
+	desc = "zig mappings",
+	group = vim.api.nvim_create_augroup("zig_mappings", { clear = true }),
+	pattern = "zig",
+	callback = function(_)
+		vim.keymap.set("n", "<F3>", ":!zig build<CR>")
+		vim.keymap.set("n", "<F4>", ":!zig build test<CR>")
+		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
 	end,
 })

@@ -1,11 +1,10 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true },
-		{ "williamboman/mason-lspconfig.nvim" },
+		{ "mason-org/mason.nvim" },
+		{ "mason-org/mason-lspconfig.nvim" },
 		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 		{ "j-hui/fidget.nvim", opts = {} },
-		{ "folke/neodev.nvim", opts = {} },
 		{
 			"nvim-telescope/telescope.nvim",
 		},
@@ -68,39 +67,45 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		local servers = {
-			rust_analyzer = {
-				rust_analyzer = { capabilities = capabilities },
-			},
-			lua_ls = {
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+		})
+		vim.lsp.config("stylua", {
+			capabilities = capabilities,
+		})
+
+		vim.lsp.config("rust_analyzer", {
+			capabilities = capabilities,
+			settings = {
+				["rust-analyzer"] = {
+					cargo = {
+						features = "all",
+						buildScripts = { enable = true },
+						procMacro = { enable = true },
+						targetDir = "/c/Users/rm052/.cargo/ratarget",
+					},
+					check = {
+						workspace = false,
 					},
 				},
 			},
-		}
+		})
+
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+		})
 
 		require("mason").setup()
-
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
-		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
 		require("mason-lspconfig").setup({
-			ensure_installed = {},
-			automatic_installation = true,
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
+			automatic_enable = true,
+		})
+
+		require("mason-tool-installer").setup({
+			ensure_installed = {
+				"lua_ls",
+				"stylua",
+				"rust_analyzer",
+				"gopls",
 			},
 		})
 	end,
