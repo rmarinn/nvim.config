@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"mfussenegger/nvim-dap",
 		"nvim-neotest/nvim-nio",
+		"theHamsta/nvim-dap-virtual-text",
 		"folke/lazydev.nvim",
 	},
 	config = function()
@@ -11,28 +12,29 @@ return {
 			library = { "nvim-dap-ui" },
 		})
 
-		local dap, dapui = require("dap"), require("dapui")
-		dap.listeners.before.attach.dapui_config = function()
-			dapui.open()
-		end
-		dap.listeners.before.launch.dapui_config = function()
-			dapui.open()
-		end
-		dap.listeners.before.event_terminated.dapui_config = function()
-			dapui.close()
-		end
-		dap.listeners.before.event_exited.dapui_config = function()
-			dapui.close()
-		end
+		local dap = require("dap")
+		local dapui = require("dapui")
+		require("dapui").setup()
 
-		dap.adapters.codelldb = {
-			type = "server",
-			port = "${port}",
-			executable = {
-				command = vim.fn.stdpath("data") .. "/mason/bin/codelldb.cmd",
-				args = { "--port", "${port}" },
-			},
-		}
+		local codelldb = vim.fn.stdpath("data") .. "/mason/bin/codelldb.cmd"
+		dap.adapters.codelldb = function(callback, config)
+			if config.request == "attach" then
+				callback({
+					type = "server",
+					host = config.host or "127.0.0.1",
+					port = config.port or "38698",
+				})
+			else
+				callback({
+					type = "server",
+					port = "${port}",
+					executable = {
+						command = codelldb,
+						args = { "--port", "${port}" },
+					},
+				})
+			end
+		end
 
 		dap.configurations.rust = {
 			{
@@ -55,22 +57,43 @@ return {
 
 		dap.configurations.zig = {
 			{
-				name = "Debug Zig executable",
 				type = "codelldb",
+				-- command = codelldb,
+				name = "Debug Zig executable",
+				task = "zig build",
 				request = "launch",
-				program = function()
-					local workspace_folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-					return vim.fn.input(
-						"Path to executable: ",
-						vim.fn.getcwd() .. "\\zig-out\\bin\\" .. workspace_folder .. ".exe",
-						"file"
-					)
-				end,
 				cwd = "${workspaceFolder}",
-				stopOnEntry = false,
+				program = function()
+					vim.fn.jobstart("zig build", {
+						stdout_buffered = true,
+						stderr_buffered = true,
+						on_exit = function() end,
+					})
+
+					local folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+					return vim.fn.getcwd() .. "/zig-out/bin/" .. folder .. ".exe"
+				end,
 				args = {},
 			},
 		}
+		-- dap.configurations.zig = {
+		-- 	{
+		-- 		name = "Debug Zig executable",
+		-- 		type = "codelldb",
+		-- 		request = "launch",
+		-- 		program = function()
+		-- 			local workspace_folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+		-- 			return vim.fn.input(
+		-- 				"Path to executable: ",
+		-- 				vim.fn.getcwd() .. "\\zig-out\\bin\\" .. workspace_folder .. ".exe",
+		-- 				"file"
+		-- 			)
+		-- 		end,
+		-- 		cwd = "${workspaceFolder}",
+		-- 		stopOnEntry = false,
+		-- 		args = {},
+		-- 	},
+		-- }
 
 		dap.adapters.delve = function(callback, config)
 			if config.mode == "remote" and config.request == "attach" then
@@ -121,20 +144,31 @@ return {
 			},
 		}
 
-		vim.keymap.set(
-			"n",
-			"<leader>dt",
-			":lua require'dap'.toggle_breakpoint()<CR>",
-			{ desc = "DAP Toggle Breakpoint" }
-		)
-		vim.keymap.set("n", "<leader>dx", ":lua require'dap'.terminate()<CR>", { desc = "DAP Terminate" })
-		vim.keymap.set("n", "<leader>dl", ":lua require'dap'.step_over()<CR>", { desc = "DAP Step Over" })
-		vim.keymap.set("n", "<leader>dk", ":lua require'dap'.step_into()<CR>", { desc = "DAP Step Into" })
-		vim.keymap.set("n", "<leader>dj", ":lua require'dap'.step_out()<CR>", { desc = "DAP Step Out" })
-		vim.keymap.set("n", "<leader>dc", ":lua require'dap'.continue()<CR>", { desc = "DAP Start or Continue" })
-		vim.keymap.set("n", "<leader><leader>dc", ":lua require'dap'.run_last()<CR>", { desc = "DAP Run last" })
-		vim.keymap.set("n", "<leader><leader>dr;", ":lua require'dap'.restart()<CR>", { desc = "DAP Restart" })
+		vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, { desc = "DAP Toggle Breakpoint" })
+		vim.keymap.set("n", "<leader>dx", dap.terminate, { desc = "DAP Terminate" })
+		vim.keymap.set("n", "<leader>dh", dap.step_back, { desc = "DAP Step Back" })
+		vim.keymap.set("n", "<leader>dk", dap.step_into, { desc = "DAP Step Into" })
+		vim.keymap.set("n", "<leader>dj", dap.step_over, { desc = "DAP Step Over" })
+		vim.keymap.set("n", "<leader>dl", dap.step_out, { desc = "DAP Step Out" })
+		vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP Start or Continue" })
+		vim.keymap.set("n", "<leader>gb", dap.run_to_cursor, { desc = "DAP Run to cursor" })
+		vim.keymap.set("n", "<leader><leader>dc", dap.run_last, { desc = "DAP Run last" })
+		vim.keymap.set("n", "<leader><leader>dr;", dap.restart, { desc = "DAP Restart" })
+		vim.keymap.set("n", "<leader>?", function()
+			dapui.eval(nil, { enter = true })
+		end, { desc = "DAP Start or Continue" })
 
-		dapui.setup()
+		dap.listeners.before.attach.dapui_config = function()
+			dapui.open()
+		end
+		dap.listeners.before.launch.dapui_config = function()
+			dapui.open()
+		end
+		dap.listeners.before.event_terminated.dapui_config = function()
+			dapui.close()
+		end
+		dap.listeners.before.event_exited.dapui_config = function()
+			dapui.close()
+		end
 	end,
 }
