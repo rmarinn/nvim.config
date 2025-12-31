@@ -2,8 +2,8 @@ return {
 	"neovim/nvim-lspconfig",
 	version = "v2.3.*",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true, version = "v2.0.\\d+$" },
-		{ "williamboman/mason-lspconfig.nvim", version = "v2.0.\\d+$" },
+		{ "mason-org/mason.nvim" },
+		{ "mason-org/mason-lspconfig.nvim" },
 		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 		{ "j-hui/fidget.nvim", opts = {}, version = "v1.6.\\d+$" },
 		{
@@ -32,6 +32,24 @@ return {
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+				vim.api.nvim_create_autocmd("BufWritePost", {
+					pattern = { "*.sql" },
+					callback = function()
+						vim.fn.system("sqlc generate")
+						-- notify gopls to refresh workspace
+						for _, client in pairs(vim.lsp.get_clients()) do
+							if client.name == "gopls" then
+								client.notify("workspace/didChangeWatchedFiles", {
+									changes = {
+										-- type = 3 means changed
+										{ uri = vim.uri_from_fname(vim.fn.getcwd()), type = 3 },
+									},
+								})
+							end
+						end
+					end,
+				})
 
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
@@ -69,57 +87,64 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		local servers = {
-			rust_analyzer = {
-				capabilities = capabilities,
-				init_options = {
+		vim.lsp.config("lua_ls", {
+			cmd = { "lua-language-server" },
+			capabilities = capabilities,
+		})
+
+		vim.lsp.config("stylua", {
+			capabilities = capabilities,
+		})
+
+		vim.lsp.config("rust_analyzer", {
+			settings = {
+				["rust-analyzer"] = {
 					cargo = {
-						features = "all",
+						-- features = "all",
+						-- buildScripts = { enable = true },
+						-- procMacro = { enable = true },
+						targetDir = true,
 					},
-					checkOnSave = {
-						command = "clippy",
-						extraArgs = { "--", "-D", "warnings" },
-					},
-				},
-			},
-			lua_ls = {
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
+					check = {
+						workspace = false,
 					},
 				},
 			},
-			harper_ls = {
-				filetypes = { "markdown", "gitcommit", "html" },
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
+		})
+
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+		})
+
+		vim.lsp.config("html", {
+			capabilities = capabilities,
+			file_types = { "html", "templ" },
+		})
+
+		vim.lsp.config("emmet_language_server", {
+			capabilities = capabilities,
+			file_types = { "html", "templ" },
+		})
+
+		vim.lsp.config("zls", {
+			capabilities = capabilities,
+			settings = {
+				enable_build_on_save = true,
+				build_on_save_step = "check",
 			},
-		}
+		})
 
 		require("mason").setup()
-
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
-		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
 		require("mason-lspconfig").setup({
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
+			automatic_enable = true,
+		})
+
+		require("mason-tool-installer").setup({
+			ensure_installed = {
+				"lua_ls",
+				"stylua",
+				"rust_analyzer",
+				"gopls",
 			},
 		})
 	end,

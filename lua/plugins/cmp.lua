@@ -1,10 +1,9 @@
 return {
 	-- Autocompletion
 	"hrsh7th/nvim-cmp",
-	version = "v0.0.\\d+$",
 	event = "InsertEnter",
 	dependencies = {
-		{ "L3MON4D3/LuaSnip",        version = "v2.4.\\d+$" },
+		{ "L3MON4D3/LuaSnip" },
 		{ "saadparwaiz1/cmp_luasnip" },
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "hrsh7th/cmp-path" },
@@ -71,7 +70,7 @@ return {
 
 			sources = {
 				{ name = "nvim_lsp" },
-				{ name = "buffer",  keyword_length = 3 },
+				{ name = "buffer", keyword_length = 3 },
 				{ name = "path" },
 				{ name = "luasnip", keyword_length = 2 },
 			},

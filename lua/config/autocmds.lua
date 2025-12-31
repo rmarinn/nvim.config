@@ -53,13 +53,27 @@ vim.api.nvim_create_autocmd("filetype", {
 	end,
 })
 
+-- go mappings
+vim.api.nvim_create_autocmd("filetype", {
+	desc = "go mappings",
+	group = vim.api.nvim_create_augroup("go_mappings", { clear = true }),
+	pattern = "go",
+	callback = function(_)
+		vim.keymap.set("n", "<F3>", ":!go mod tidy<CR>")
+		vim.keymap.set("n", "<F4>", ":!go test ./...<CR>")
+		vim.keymap.set("n", "<F5>", ":!go run ./main.go")
+		vim.keymap.set("n", "<leader>ie", "_ival, err := <ESC>oif err != nil {<CR>return err<CR>}")
+		vim.keymap.set("n", "<leader>er", "_iif err := <ESC>A; err != nil {<CR>return err<CR>}")
+	end,
+})
+
 -- zig mappings
 vim.api.nvim_create_autocmd("filetype", {
 	desc = "zig mappings",
 	group = vim.api.nvim_create_augroup("zig_mappings", { clear = true }),
 	pattern = "zig",
 	callback = function(_)
-		vim.keymap.set("n", "<F3>", ":!zig run ")
+		vim.keymap.set("n", "<F3>", ":!zig build<CR>")
 		vim.keymap.set("n", "<F4>", ":!zig build test<CR>")
 		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
 	end,

@@ -25,6 +25,10 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<leader>qj", ":cnext<CR>", { desc = "Move to next item in the quickfix list" })
+vim.keymap.set("n", "<leader>qk", ":cprev<CR>", { desc = "Move to previous item in the quickfix list" })
+vim.keymap.set("n", "<leader>sl", ":vsp<CR><C-w><C-l>", { desc = "Vertical split then go to the right window" })
+vim.keymap.set("n", "<leader>sj", ":sp<CR><C-w><C-j>", { desc = "Horizontal split then go to the bottom window" })
 
 -- Keybinds for tab navigation
 vim.keymap.set("n", "<C-t>n", ":tabnew<CR>", { desc = "Create a new tab" })
@@ -41,3 +45,10 @@ vim.keymap.set("n", "<C-t><C-h>", "-tabmove", { desc = "Move tab to the left" })
 vim.keymap.set("n", "<C-t><C-l>", "+tabmove", { desc = "Move tab to the right" })
 
 vim.keymap.set("n", "<C-w>", ":bdelete<CR>", { desc = "Remove current (unsaved) buffer" })
+
+vim.keymap.set("n", "<leader>tl", ":vsp<CR>:term<CR>", { desc = "Open terminal on the right" })
+vim.keymap.set("n", "<leader>tj", ":sp<CR>:term<CR>", { desc = "Open terminal on the bottom" })
+vim.keymap.set("n", "<leader>tt", ":term<CR>", { desc = "Open terminal on the current screen" })
+vim.keymap.set("n", "<leader>tx", ":q<CR>:vsp<CR>", { desc = "Close terminal Split" })
+
+vim.keymap.set("n", "<leader>rr", ":<UP><CR>", { desc = "Rerun last command" })
