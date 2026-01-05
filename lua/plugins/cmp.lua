@@ -7,11 +7,16 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		"onsails/lspkind.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+		local lspkind = require("lspkind")
 		luasnip.config.setup({})
+
+		local windowCompletionOpts = cmp.config.window.bordered()
+		windowCompletionOpts.col_offset = 10
 
 		cmp.setup({
 			snippet = {
@@ -19,12 +24,25 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			completion = { completeopt = "menu,menuone,noinsert" },
+
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
+
+			formatting = {
+				fields = { "kind", "abbr", "menu" },
+				format = function(entry, vim_item)
+					local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+					local strings = vim.split(kind.kind, "%s", { trimempty = true })
+					kind.kind = " " .. (strings[1] or "") .. " "
+					kind.menu = "    (" .. (strings[2] or "") .. ")"
+					return kind
+				end,
+			},
 
 			-- For an understanding of why these mappings were
 			-- chosen, you will need to read `:help ins-completion`
-			--
-			-- No, but seriously. Please read `:help ins-completion`, it is really good!
 			mapping = cmp.mapping.preset.insert({
 				-- Select the [n]ext item
 				["<C-n>"] = cmp.mapping.select_next_item(),
@@ -35,11 +53,7 @@ return {
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 
-				-- Accept ([y]es) the completion.
-				-- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
-				-- If you prefer more traditional completion keymaps,
-				-- you can uncomment the following lines
+				-- Accept the completion.
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 
 				-- Manually trigger a completion from nvim-cmp.
@@ -75,8 +89,32 @@ return {
 				{ name = "luasnip", keyword_length = 2 },
 			},
 
-			window = {
-				documentation = cmp.config.window.bordered(),
+			completion = { completeopt = "menu,menuone,noinsert" },
+		})
+
+		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+		cmp.setup.cmdline({ "/", "?" }, {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = {
+				{ name = "buffer" },
+			},
+		})
+
+		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+		cmp.setup.cmdline(":", {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources({
+				{ name = "path" },
+			}, {
+				{ name = "cmdline" },
+			}),
+			matching = {
+				disallow_fuzzy_matching = false,
+				disallow_fullfuzzy_matching = false,
+				disallow_partial_fuzzy_matching = false,
+				disallow_partial_matching = false,
+				disallow_prefix_unmatching = false,
+				disallow_symbol_nonprefix_matching = false,
 			},
 		})
 	end,
