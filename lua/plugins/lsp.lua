@@ -31,24 +31,6 @@ return {
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-				vim.api.nvim_create_autocmd("BufWritePost", {
-					pattern = { "*.sql" },
-					callback = function()
-						vim.fn.system("sqlc generate")
-						-- notify gopls to refresh workspace
-						for _, client in pairs(vim.lsp.get_clients()) do
-							if client.name == "gopls" then
-								client.notify("workspace/didChangeWatchedFiles", {
-									changes = {
-										-- type = 3 means changed
-										{ uri = vim.uri_from_fname(vim.fn.getcwd()), type = 3 },
-									},
-								})
-							end
-						end
-					end,
-				})
-
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
