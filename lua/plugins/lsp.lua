@@ -131,6 +131,9 @@ return {
 			settings = {
 				enable_build_on_save = true,
 				build_on_save_step = "check",
+				zls = {
+					zig_exe_path = "/home/rmarinn/.local/bin/zig",
+				},
 			},
 		})
 
