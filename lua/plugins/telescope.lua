@@ -79,5 +79,9 @@ return {
 		vim.keymap.set("n", "<leader>sn", function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
 		end, { desc = "[S]earch [N]eovim files" })
+
+		vim.keymap.set("n", "<leader>sz", function()
+			builtin.find_files({ cwd = "C:\\zig-x86_64-windows-0.15.2\\lib\\std" })
+		end, { desc = "Search Zig std" })
 	end,
 }

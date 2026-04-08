@@ -56,3 +56,5 @@ vim.opt.expandtab = true -- Use spaces instead of tabs
 
 -- Font
 vim.opt.guifont = "Mononoki Nerd Font Mono"
+
+vim.opt.fileformats = { "unix", "dos" }

@@ -73,8 +73,9 @@ vim.api.nvim_create_autocmd("filetype", {
 	group = vim.api.nvim_create_augroup("zig_mappings", { clear = true }),
 	pattern = "zig",
 	callback = function(_)
-		vim.keymap.set("n", "<F3>", ":!zig build<CR>")
+		vim.keymap.set("n", "<F2>", ":lua print(vim.system({'zig', 'ast-check', vim.fn.expand('%:p')}):wait().stderr)<CR>")
+		vim.keymap.set("n", "<F3>", ":LspRestart")
 		vim.keymap.set("n", "<F4>", ":!zig build test<CR>")
-		vim.keymap.set("n", "<F5>", ":!zig build run<CR>")
+		vim.keymap.set("n", "<F5>", ":sp<CR>:term<CR>azig build run<CR>")
 	end,
 })

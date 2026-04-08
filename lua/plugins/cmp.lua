@@ -83,8 +83,8 @@ return {
 			}),
 
 			sources = {
-				{ name = "nvim_lsp" },
 				{ name = "buffer", keyword_length = 3 },
+				{ name = "nvim_lsp" },
 				{ name = "path" },
 				{ name = "luasnip", keyword_length = 2 },
 			},
