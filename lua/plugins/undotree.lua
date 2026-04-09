@@ -1,7 +1,7 @@
-return {
-	"mbbill/undotree",
-	config = function()
-		vim.g.undotree_DiffCommand = "FC"
-		vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-	end,
-}
+vim.cmd.packadd('nvim.undotree')
+
+local undotree = require('undotree')
+
+vim.keymap.set('n', '<leader>u', function()
+	undotree.open({ command = 'topleft 30vnew' })
+end)

@@ -1,19 +1,20 @@
-return {
-	"stevearc/conform.nvim",
-	keys = {
-		{
-			"<leader>f",
-			function()
-				require("conform").format({ async = true, lsp_format = "fallback" })
-			end,
-			mode = "",
-			desc = "[F]ormat buffer",
-		},
-	},
-	opts = {
-		formatters_by_ft = {
-			lua = { "stylua" },
-			javascript = { "prettierd" },
-		},
-	},
+vim.pack.add({
+	'https://github.com/stevearc/conform.nvim',
+})
+
+local conform = require('conform')
+conform.setup({
+	default_format_opts = { lsp_format = 'fallback' },
+})
+
+conform.formatters_by_ft.lua = { 'stylua' }
+conform.formatters_by_ft.zig = { 'zigfmt' }
+conform.formatters_by_ft.rust = { 'rustfmt' }
+
+conform.formatters.stylua = {
+	append_args = { '--quote-style', 'AutoPreferSingle' },
 }
+
+vim.keymap.set('n', '<leader>f', function()
+	conform.format({ async = true, lsp_format = 'fallback' })
+end, { desc = 'Format current buffer' })

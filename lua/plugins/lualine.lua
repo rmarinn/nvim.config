@@ -1,11 +1,10 @@
-return {
-	-- statusline themeing
-	"nvim-lualine/lualine.nvim",
-	opts = {
-		icons_enabled = true,
-		colorscheme = "dracula-nvim",
+vim.pack.add({
+	'https://github.com/nvim-tree/nvim-web-devicons',
+	'https://github.com/nvim-lualine/lualine.nvim',
+})
+
+require('lualine').setup({
+	options = {
+		theme = 'dracula-nvim',
 	},
-	sections = {
-		lualine_a = { "filename", path = 1 },
-	},
-}
+})

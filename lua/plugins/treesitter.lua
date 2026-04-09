@@ -1,18 +1,19 @@
-return {
-	-- Highlight, edit, and navigate code
-	"nvim-treesitter/nvim-treesitter",
-	event = { "BufReadPost", "BufNewFile" },
-	cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-	build = ":TSUpdate",
-	lazy = false,
-	opts = {
-		ensure_installed = { "diff", "lua", "luadoc", "markdown", "vim", "vimdoc" },
-		auto_install = true,
-		highlight = { enable = true, use_languagetree = true },
-		indent = { enable = true },
-	},
-	config = function(_, opts)
-		require("nvim-treesitter.install").compilers = { "clang", "gcc" }
-		require("nvim-treesitter.configs").setup(opts)
-	end,
-}
+vim.pack.add({
+	'https://github.com/nvim-treesitter/nvim-treesitter',
+	'https://github.com/nvim-treesitter/nvim-treesitter-context',
+})
+
+local ts = require('nvim-treesitter')
+local tsc = require('treesitter-context')
+
+ts.install({ 'diff', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'zig', 'rust' }, {
+	generate = true,
+})
+
+tsc.disable()
+vim.keymap.set('n', '[c', function()
+	tsc.go_to_context(vim.v.count1)
+end, { silent = true, desc = 'Jump to the start of the function' })
+vim.keymap.set('n', ']c', function()
+	tsc.toggle()
+end, { silent = true, desc = 'Toggle treesitter context' })
