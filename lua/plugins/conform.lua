@@ -10,6 +10,7 @@ conform.setup({
 conform.formatters_by_ft.lua = { 'stylua' }
 conform.formatters_by_ft.zig = { 'zigfmt' }
 conform.formatters_by_ft.rust = { 'rustfmt' }
+conform.formatters_by_ft.json = { 'prettierd' }
 
 conform.formatters.stylua = {
 	append_args = { '--quote-style', 'AutoPreferSingle' },

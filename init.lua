@@ -6,7 +6,6 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
-vim.opt.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
@@ -25,6 +24,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.opt.clipboard = 'unnamedplus'
 vim.opt.guifont = 'Mononoki Nerd Font Mono'
 vim.opt.fileformats = { 'unix', 'dos' }
 
@@ -34,7 +34,12 @@ vim.cmd.packadd('nvim.difftool')
 require('keymaps')
 require('autocmds')
 require('colorscheme')
-require('lsp_config')
+
+vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('zls')
+vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('basedpyright')
 
 require('plugins.conform')
 require('plugins.fugitive')
@@ -44,3 +49,4 @@ require('plugins.oil')
 require('plugins.telescope')
 require('plugins.treesitter')
 require('plugins.undotree')
+
