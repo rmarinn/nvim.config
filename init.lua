@@ -31,12 +31,7 @@ vim.opt.fileformats = { 'unix', 'dos' }
 vim.cmd.packadd('nohlsearch')
 vim.cmd.packadd('nvim.difftool')
 
-vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('zls')
-vim.lsp.enable('rust_analyzer')
-vim.lsp.enable('basedpyright')
-
+require('plugins.lsp_config')
 require('plugins.conform')
 require('plugins.fugitive')
 require('plugins.harpoon')

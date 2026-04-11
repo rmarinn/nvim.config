@@ -23,6 +23,21 @@ vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = 'Telescope Resume' })
 vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Telescope word' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Telescope buffers' })
 
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(ev)
+		local map = function(keys, func, desc)
+			vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = 'LSP: ' .. desc })
+		end
+
+		map('<leader>gr', builtin.lsp_references, 'References')
+		map('<leader>gd', builtin.lsp_definitions, 'Type definition')
+		map('<leader>ds', builtin.lsp_document_symbols, 'Show document symbols')
+		map('<leader>ds', builtin.lsp_document_symbols, 'Show document symbols')
+		map('<leader>gI', builtin.lsp_implementations, 'Implementations')
+		map('<leader>D', builtin.lsp_type_definitions, 'Type definitions')
+	end,
+})
+
 local zig_std_dir
 vim.keymap.set('n', '<leader>sz', function()
 	if not zig_std_dir then
