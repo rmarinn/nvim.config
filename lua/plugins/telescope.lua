@@ -7,7 +7,6 @@ vim.pack.add({
 })
 
 local builtin = require('telescope.builtin')
-
 pcall(require('telescope').load_extension, 'fzf')
 
 vim.keymap.set('n', '<leader>sn', function()

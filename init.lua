@@ -31,10 +31,6 @@ vim.opt.fileformats = { 'unix', 'dos' }
 vim.cmd.packadd('nohlsearch')
 vim.cmd.packadd('nvim.difftool')
 
-require('keymaps')
-require('autocmds')
-require('colorscheme')
-
 vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('zls')
@@ -50,3 +46,19 @@ require('plugins.telescope')
 require('plugins.treesitter')
 require('plugins.undotree')
 
+require('keymaps')
+require('autocmds')
+require('colorscheme')
+
+-- vim.g.clipboard = {
+-- 	name = "WslClipboard",
+-- 	copy = {
+-- 		["+"] = "clip.exe",
+-- 		["*"] = "clip.exe",
+-- 	},
+-- 	paste = {
+-- 		["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- 		["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- 	},
+-- 	cache_enabled = 0,
+-- }
