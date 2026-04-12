@@ -1,10 +1,19 @@
-vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
+vim.pack.add({
+	'https://github.com/neovim/nvim-lspconfig',
+	'https://github.com/L3MON4D3/LuaSnip',
+	'https://github.com/hrsh7th/cmp-nvim-lsp',
+})
+
+local cmp = require('cmp_nvim_lsp')
+local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local function lazy_init(pat, lsp)
 	vim.api.nvim_create_autocmd('FileType', {
 		pattern = pat,
 		callback = function()
 			vim.lsp.enable(lsp)
+			vim.lsp.config[lsp].capabilities =
+				vim.tbl_deep_extend('force', default_capabilities, cmp.default_capabilities())
 		end,
 	})
 end

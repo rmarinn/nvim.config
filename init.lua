@@ -40,6 +40,7 @@ require('plugins.oil')
 require('plugins.telescope')
 require('plugins.treesitter')
 require('plugins.undotree')
+require('plugins.autocomplete')
 
 require('keymaps')
 require('autocmds')
