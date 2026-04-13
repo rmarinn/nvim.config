@@ -26,6 +26,10 @@ cmp.setup({
 		documentation = cmp.config.window.bordered(),
 	},
 
+	view = {
+		docs = { auto_open = false },
+	},
+
 	-- For an understanding of why these mappings were
 	-- chosen, you will need to read `:help ins-completion`
 	mapping = cmp.mapping.preset.insert({
@@ -65,6 +69,14 @@ cmp.setup({
 			end
 		end, { 'i', 's' }),
 
+		['<S-K>'] = function()
+			if cmp.visible_docs() then
+				cmp.close_docs()
+			else
+				cmp.open_docs()
+			end
+		end,
+
 		-- Manually trigger a completion from nvim-cmp.
 		['<C-Space>'] = cmp.mapping.complete({}),
 		-- <c-l> will move you to the right of each of the expansion locations.
@@ -94,6 +106,11 @@ cmp.setup.cmdline({ '/', '?' }, {
 	sources = {
 		{ name = 'buffer' },
 	},
+	view = {
+		entries = {
+			selection_order = 'near_cursor',
+		},
+	},
 })
 
 cmp.setup.cmdline(':', {
@@ -104,4 +121,9 @@ cmp.setup.cmdline(':', {
 		{ name = 'cmdline', keyword_length = 3 },
 	}),
 	matching = { disallow_symbol_nonprefix_matching = false },
+	view = {
+		entries = {
+			selection_order = 'near_cursor',
+		},
+	},
 })
