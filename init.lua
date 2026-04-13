@@ -46,6 +46,11 @@ require('keymaps')
 require('autocmds')
 require('colorscheme')
 
+-- snippets
+-- Adding new snippets: https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md
+require('snippets.zig')
+
+-- Uncomment for WSL clipboard
 -- vim.g.clipboard = {
 -- 	name = "WslClipboard",
 -- 	copy = {
