@@ -28,7 +28,6 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.guifont = 'Mononoki Nerd Font Mono'
 vim.opt.fileformats = { 'unix', 'dos' }
 
-vim.cmd.packadd('nohlsearch')
 vim.cmd.packadd('nvim.difftool')
 
 require('plugins.lsp_config')
