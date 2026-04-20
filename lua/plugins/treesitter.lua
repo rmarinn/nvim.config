@@ -10,7 +10,10 @@ ts.install({ 'diff', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'zig', 'rust'
 	generate = true,
 })
 
-tsc.disable()
+tsc.setup({
+	enable = false,
+  separator = '―',
+})
 vim.keymap.set('n', '[c', function()
 	tsc.go_to_context(vim.v.count1)
 end, { silent = true, desc = 'Jump to the start of the function' })
