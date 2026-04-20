@@ -5,14 +5,17 @@ vim.pack.add({
 	'https://github.com/hrsh7th/cmp-buffer',
 	'https://github.com/hrsh7th/cmp-path',
 	'https://github.com/hrsh7th/cmp-cmdline',
+	'https://github.com/hrsh7th/cmp-cmdline',
+	'https://github.com/saadparwaiz1/cmp_luasnip',
 })
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lspkind = require('lspkind')
 
-lspkind.init({ mode = 'symbol_text' })
 luasnip.config.setup({})
+
+lspkind.init({ mode = 'symbol_text' })
 
 cmp.setup({
 	snippet = {
@@ -69,13 +72,13 @@ cmp.setup({
 			end
 		end, { 'i', 's' }),
 
-		['<S-K>'] = function()
+		['<S-K>'] = cmp.mapping(function()
 			if cmp.visible_docs() then
 				cmp.close_docs()
 			else
 				cmp.open_docs()
 			end
-		end,
+		end, { 's' }),
 
 		-- Manually trigger a completion from nvim-cmp.
 		['<C-Space>'] = cmp.mapping.complete({}),

@@ -1,6 +1,5 @@
 vim.pack.add({
 	'https://github.com/neovim/nvim-lspconfig',
-	'https://github.com/L3MON4D3/LuaSnip',
 	'https://github.com/hrsh7th/cmp-nvim-lsp',
 })
 

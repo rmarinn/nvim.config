@@ -9,3 +9,24 @@ ls.add_snippets('zig', {
 		i(1),
 	}),
 })
+
+ls.add_snippets('zig', {
+	s('alloc', {
+		t('allocator: Allocator'),
+		i(1),
+	}),
+})
+
+ls.add_snippets('zig', {
+	s('gpa', {
+		t('gpa: Allocator'),
+		i(1),
+	}),
+})
+
+ls.add_snippets('zig', {
+	s('arena', {
+		t('arena: Allocator'),
+		i(1),
+	}),
+})
