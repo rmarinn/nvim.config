@@ -26,20 +26,24 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.guifont = 'Mononoki Nerd Font Mono'
-vim.opt.fileformats = { 'unix', 'dos' }
+vim.opt.fileformats = { 'unix' }
+vim.opt.shellcmdflag = '-c'
+vim.opt.shellquote = ''
+vim.opt.shellxquote = ''
 
 vim.cmd.packadd('nvim.difftool')
 
-require('plugins.lsp_config')
+require('plugins.autocomplete')
 require('plugins.conform')
 require('plugins.fugitive')
+require('plugins.gitsigns')
 require('plugins.harpoon')
+require('plugins.lsp_config')
 require('plugins.lualine')
 require('plugins.oil')
 require('plugins.telescope')
 require('plugins.treesitter')
 require('plugins.undotree')
-require('plugins.autocomplete')
 
 require('keymaps')
 require('autocmds')
